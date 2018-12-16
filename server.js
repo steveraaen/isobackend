@@ -16,22 +16,59 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 // ------ Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.get('/hotels', function(req, res) {
+/*app.get('/hotels', function(req, res) {
+	 console.log(req.params);
 	client.search({
 	  term:'Marriot',
 	  location: 'Madrid, es'
 		})
 	.then(response => {
 			var val = response.jsonBody.businesses
-		  console.log(val);
+		 
+		  res.json(val)
+		})
+	.catch(e => {
+		  console.log(e);
+});
+})*/
+app.get('/hotels', function(req, res) {
+	 console.log(req.query.city, req.query.chain);
+	
+	client.search({
+	  term: JSON.stringify(req.query.chain),
+	  location: JSON.stringify(req.query.city),
+	  
+		})
+	.then(response => {
+			var val = response.jsonBody.businesses
+		 
 		  res.json(val)
 		})
 	.catch(e => {
 		  console.log(e);
 });
 })
-
  
 const port = process.env.PORT || 5001;
 app.listen(port);
 console.log(`Listening on ${port}`);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
