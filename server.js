@@ -4,7 +4,7 @@ const express = require('express');
 const path = require('path');
 const axios = require('axios');
 const bodyParser = require('body-parser')
-/*const getYelp = require('./yelpers.js')*/
+const mysql = require('mysql');
 const keys = require('./keys.js')
 const app = express();
 const client = yelp.client(keys.ylp);
@@ -20,9 +20,10 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 app.get('/hotels', function(req, res) {
 	 console.log(req.query.city, req.query.chain);	
 	client.search({
-	  term: JSON.stringify(req.query.chain),
+/*	  term: JSON.stringify(req.query.chain),*/
 	  location: JSON.stringify(req.query.city),
-	  categories: 'hotels'
+	  categories: 'hotels',
+	  limit:50
 
 		})
 	.then(response => {
@@ -43,7 +44,8 @@ app.get('/details', function(req, res) {
 	  radius: 1000,
 	  limit: 50,
 	  categories: 'restaurants',
-	  rating: '3, 4, 5',
+	  rating: '3,4,5',
+	  price: '1,2,3,4',
 	  sort_by: 'distance'
 		})
 	.then(response => {
