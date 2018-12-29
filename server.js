@@ -45,8 +45,7 @@ app.get('/details', function(req, res) {
 	  limit: 50,
 	  categories: 'restaurants',
 	  rating: '3,4,5',
-	  price: '1,2,3,4',
-	  sort_by: 'distance'
+	  price: '1,2,3,4'
 		})
 	.then(response => {
 			var val = response.jsonBody.businesses
