@@ -10,13 +10,14 @@ const keys = require('./keys.js')
 const app = express();
 const client = yelp.client(keys.ylp);
 // ------ Setup middleware
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 // ------ Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
-app.use(cors())
+
 app.get('/hotels', function(req, res) {
 	 console.log(req.query.city, req.query.chain);	
 	client.search({
