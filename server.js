@@ -37,7 +37,7 @@ app.get('/hotels', function(req, res) {
 })
 app.get('/details', function(req, res) {
 	 console.log(req.query.longitude, req.query.latitude);
-
+var test = req.query
 	client.search({	  
 	  longitude: req.query.longitude,
 	  latitude: req.query.latitude,
@@ -49,33 +49,15 @@ app.get('/details', function(req, res) {
 		})
 	.then(response => {
 			var val = response.jsonBody.businesses
-		 
+		 console.log(req.query)
 		  res.json(val)
 		})
 	.catch(e => {
 		  console.log(e);
 });
 })
+
 const port = process.env.PORT || 5001;
 app.listen(port);
 console.log(`Listening on ${port}`);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//-----------------------------------
