@@ -24,7 +24,6 @@ app.get('/hotels', function(req, res) {
 	  location: JSON.stringify(req.query.city),
 	  categories: 'hotels',
 	  limit:50
-
 		})
 	.then(response => {
 			var val = response.jsonBody.businesses
