@@ -15,8 +15,24 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 // ------ Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(function (req, res, next) {
 
+   // Website you wish to allow to connect
+   res.setHeader('Access-Control-Allow-Origin', '*');
 
+   // Request methods you wish to allow
+   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+   // Request headers you wish to allow
+   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+   // Set to true if you need the website to include cookies in the requests sent
+   // to the API (e.g. in case you use sessions)
+   res.setHeader('Access-Control-Allow-Credentials', true);
+
+   // Pass to next layer of middleware
+   next();
+});
 app.get('/hotels', function(req, res) {
 	 console.log(req.query.city, req.query.chain);	
 	client.search({
